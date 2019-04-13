@@ -29,9 +29,10 @@ export class SimpleScene extends Phaser.Scene {
 		//this.player.body.allowGravity = false;
 		this.player.setActive(true);
 		this.player.body.setGravity(0,-300);
-		this.player.body.setDrag(-5);
-
-		this.player.setVelocityX(16);
+		//this.player.body.setDrag(-5);
+		this.player.body.setAllowDrag(true);
+		this.player.body.setDrag(70, 70);
+		this.player.body.setFriction(0.7, 0);
 
 		this.anims.create({
 			key: 'spin',
@@ -45,15 +46,16 @@ export class SimpleScene extends Phaser.Scene {
 
 	update()
 	{
-		if (this.cursors.left.isDown)
-		{
-			this.player.setVelocityX(-160);
-		}
-		else if (this.cursors.right.isDown)
-		{
-			this.player.setVelocityX(160);
+		if (this.cursors.left.isDown){
+			this.player.setAccelerationX(-250);
+		}else if (this.cursors.right.isDown){
+			this.player.setAccelerationX(250);
+		}else if (this.cursors.up.isDown){
+			this.player.setAccelerationY(-250);
+		}else if (this.cursors.down.isDown){
+			this.player.setAccelerationY(250);
 		}else{
-			this.player.setVelocityX(0);
+			this.player.setAcceleration(0);
 		}
 	}
 }
