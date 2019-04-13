@@ -1,6 +1,18 @@
 export class SimpleScene extends Phaser.Scene {
 
-	
+	constructor() {
+		super({
+			key: 'SimpleScene',
+			physics: {
+				system: 'impact',
+				gravity: 0,
+				setBounds: {
+					width: 800,
+					height: 600
+				}
+			}
+		});
+	}
 
 	preload() {
 		this.load.spritesheet('ship', 'assets/sprites/anim_ship_spin.png', { frameWidth: 192, frameHeight: 63 });
@@ -14,8 +26,12 @@ export class SimpleScene extends Phaser.Scene {
 
 		this.player = this.physics.add.sprite(400, 300, 'ship');
 		//player.body.setGravity(0,0);
-		this.player.body.allowGravity = false;
-		this.player.setFriction(1);
+		//this.player.body.allowGravity = false;
+		this.player.setActive(true);
+		this.player.body.setGravity(0,-300);
+		this.player.body.setDrag(-5);
+
+		this.player.setVelocityX(16);
 
 		this.anims.create({
 			key: 'spin',
@@ -36,6 +52,8 @@ export class SimpleScene extends Phaser.Scene {
 		else if (this.cursors.right.isDown)
 		{
 			this.player.setVelocityX(160);
+		}else{
+			this.player.setVelocityX(0);
 		}
 	}
 }
