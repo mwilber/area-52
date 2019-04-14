@@ -25,6 +25,9 @@ export class SimpleScene extends Phaser.Scene {
 
 		this.cursors = this.input.keyboard.createCursorKeys();
 
+		this.platforms = this.physics.add.staticGroup();
+    	this.platforms.create(400, 568, 'ground').refreshBody();
+
 		this.player = this.physics.add.sprite(400, 300, 'ship');
 		//player.body.setGravity(0,0);
 		//this.player.body.allowGravity = false;
@@ -42,10 +45,11 @@ export class SimpleScene extends Phaser.Scene {
 		});
 
 		this.player.anims.play('spin', true);
+
+		this.physics.add.collider(this.player, this.platforms, this.HitGround, null, this);
 	}
 
-	update()
-	{
+	update() {
 		if (this.cursors.left.isDown){
 			this.player.setAccelerationX(-500);
 			this.player.setAccelerationY(-500);
@@ -59,5 +63,9 @@ export class SimpleScene extends Phaser.Scene {
 		}else{
 			this.player.setAcceleration(0);
 		}
+	}
+
+	HitGround(){
+		//console.log('Hit Ground')
 	}
 }
