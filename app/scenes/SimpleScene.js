@@ -2,15 +2,7 @@ export class SimpleScene extends Phaser.Scene {
 
 	constructor() {
 		super({
-			key: 'SimpleScene',
-			physics: {
-				system: 'impact',
-				gravity: 0,
-				setBounds: {
-					width: 800,
-					height: 600
-				}
-			}
+			key: 'SimpleScene'
 		});
 	}
 
@@ -45,6 +37,9 @@ export class SimpleScene extends Phaser.Scene {
 		});
 
 		this.player.anims.play('spin', true);
+
+		//the camera will follow the player in the world
+		this.cameras.main.startFollow(this.player);
 
 		this.physics.add.collider(this.player, this.platforms, this.HitGround, null, this);
 	}
