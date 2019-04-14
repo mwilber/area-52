@@ -15,6 +15,7 @@ export class SimpleScene extends Phaser.Scene {
 	}
 
 	preload() {
+		this.load.image('ground', 'assets/sprites/platform.png');
 		this.load.spritesheet('ship', 'assets/sprites/anim_ship_spin.png', { frameWidth: 192, frameHeight: 63 });
 		
 	}
@@ -28,8 +29,7 @@ export class SimpleScene extends Phaser.Scene {
 		//player.body.setGravity(0,0);
 		//this.player.body.allowGravity = false;
 		this.player.setActive(true);
-		this.player.body.setGravity(0,-300);
-		//this.player.body.setDrag(-5);
+		this.player.body.setGravity(0,-100);
 		this.player.body.setAllowDrag(true);
 		this.player.body.setDrag(70, 70);
 		this.player.body.setFriction(0.7, 0);
@@ -47,13 +47,15 @@ export class SimpleScene extends Phaser.Scene {
 	update()
 	{
 		if (this.cursors.left.isDown){
-			this.player.setAccelerationX(-250);
+			this.player.setAccelerationX(-500);
+			this.player.setAccelerationY(-500);
 		}else if (this.cursors.right.isDown){
-			this.player.setAccelerationX(250);
-		}else if (this.cursors.up.isDown){
-			this.player.setAccelerationY(-250);
-		}else if (this.cursors.down.isDown){
-			this.player.setAccelerationY(250);
+			this.player.setAccelerationX(500);
+			this.player.setAccelerationY(-500);
+		//}else if (this.cursors.up.isDown){
+		//	this.player.setAccelerationY(-250);
+		//}else if (this.cursors.down.isDown){
+		//	this.player.setAccelerationY(250);
 		}else{
 			this.player.setAcceleration(0);
 		}
