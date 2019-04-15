@@ -14,6 +14,10 @@ export class SimpleScene extends Phaser.Scene {
 	}
 
 	create() {
+
+		this.physics.world.setBounds(0, 0, 800, 32*100);
+		this.cameras.main.setBounds(this.physics.world.bounds.x, this.physics.world.bounds.y, this.physics.world.bounds.width, this.physics.world.bounds.height);
+
 		this.add.text(100, 100, 'Hello Phaser!', { fill: '#0f0' });
 
 		this.cursors = this.input.keyboard.createCursorKeys();
@@ -34,6 +38,7 @@ export class SimpleScene extends Phaser.Scene {
 		this.player.body.setAllowDrag(true);
 		this.player.body.setDrag(70, 70);
 		this.player.body.setFriction(0.7, 0);
+		this.player.setCollideWorldBounds(true);
 
 		this.anims.create({
 			key: 'spin',
