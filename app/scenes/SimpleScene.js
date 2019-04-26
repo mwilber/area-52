@@ -81,6 +81,7 @@ export class SimpleScene extends Phaser.Scene {
 		//debugger;
 		//let pgroup = this.add.container(200,200)
 		let saucer = this.add.sprite(0, 0, 'ship');
+		saucer.anims.play('spin', true);
 		let gear = this.add.sprite(0, 50, 'landing_gear');
 
 		//this.player = this.physics.add.sprite(400, 300, 'ship');
