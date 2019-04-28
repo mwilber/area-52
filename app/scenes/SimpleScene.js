@@ -7,6 +7,7 @@ export class SimpleScene extends Phaser.Scene {
 
 		this.player = null;
 		this.worldLayer = null;
+		this.landingLayer = null;
 	}
 
 	preload() {
@@ -25,6 +26,7 @@ export class SimpleScene extends Phaser.Scene {
 		this.cursors = this.input.keyboard.createCursorKeys();
 
 		this.worldLayer = this.InitTileMaps();
+		this.landingLayer = this.InitLandingPads();
 
 		this.InitPlayerAnims();
 		this.InitPlayerObject();
@@ -33,7 +35,8 @@ export class SimpleScene extends Phaser.Scene {
 		//the camera will follow the player in the world
 		this.cameras.main.startFollow(this.player);
 
-		this.physics.add.collider(this.player, this.worldLayer, this.HitGround, null, this);
+		this.physics.add.collider(this.player, this.worldLayer, this.HitWorld, null, this);
+		this.physics.add.collider(this.player, this.landingLayer, this.HitLandingPad, null, this);
 		//console.log('player', this.player);
 	}
 
@@ -78,6 +81,17 @@ export class SimpleScene extends Phaser.Scene {
 		return worldLayer;
 	}
 
+	InitLandingPads(){
+		const map = this.make.tilemap({ key: "map" });
+		const tileset = map.addTilesetImage("Super Mario Tiles", "tiles");
+
+		const landingLayer = map.createStaticLayer("LandingPads", tileset, 0, 0);
+		  
+		landingLayer.setCollisionByProperty({ landingpad: true });
+
+		return landingLayer;
+	}
+
 	InitPlayerObject(){
 		this.player = this.physics.add.sprite(400, 3000, 'ship');
 		this.player.setActive(true);
@@ -99,11 +113,12 @@ export class SimpleScene extends Phaser.Scene {
 		});
 	}
 
-	HitGround(){
-		console.log('Hit Ground')
+	HitWorld(event){
+		console.log('Hit Ground');
+		//debugger;
 	}
 
-	Touchdown(){
-		console.log('Touchdown')
+	HitLandingPad(event){
+		console.log('TOUCHDOWN!');
 	}
 }
