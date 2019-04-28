@@ -79,8 +79,9 @@ export class SimpleScene extends Phaser.Scene {
 	}
 
 	InitPlayerObject(){
-		this.player = this.physics.add.sprite(400, 2400, 'ship');
+		this.player = this.physics.add.sprite(400, 3000, 'ship');
 		this.player.setActive(true);
+		this.player.setScale(0.5);
 		this.player.body.setGravity(0,-100);
 		this.player.body.setAllowDrag(true);
 		this.player.body.setDrag(70, 70);
