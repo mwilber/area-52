@@ -41,25 +41,25 @@ export class SimpleScene extends Phaser.Scene {
 		if (this.cursors.left.isDown){
 			this.player.body.setAccelerationX(-500);
 			this.player.body.setAccelerationY(-500);
-			// if(this.player.angle > -15){
-			// 	this.player.setAngle(this.player.angle-1);
-			// }
+			if(this.player.angle > -15){
+				this.player.setAngle(this.player.angle-1);
+			}
 		}else if (this.cursors.right.isDown){
 			this.player.body.setAccelerationX(500);
 			this.player.body.setAccelerationY(-500);
-			// if(this.player.angle < 15){
-			// 	this.player.setAngle(this.player.angle+1);
-			// }
+			if(this.player.angle < 15){
+				this.player.setAngle(this.player.angle+1);
+			}
 		//}else if (this.cursors.up.isDown){
 		//	this.player.setAccelerationY(-250);
 		//}else if (this.cursors.down.isDown){
 		//	this.player.setAccelerationY(250);
 		}else{
-			// if(Math.abs(this.player.angle) < 1){
-			// 	this.player.setAngle(0);
-			// }else{
-			// 	this.player.setAngle(this.player.angle*0.7);
-			// }
+			if(Math.abs(this.player.angle) < 1){
+				this.player.setAngle(0);
+			}else{
+				this.player.setAngle(this.player.angle*0.7);
+			}
 			this.player.body.setAcceleration(0);
 		}
 
