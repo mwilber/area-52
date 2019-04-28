@@ -33,7 +33,8 @@ export class SimpleScene extends Phaser.Scene {
 		//the camera will follow the player in the world
 		this.cameras.main.startFollow(this.player);
 
-		this.physics.add.collider(this.player, this.worldLayer, this.HitGround, null, this);
+		//this.physics.add.collider(this.player, this.worldLayer, this.HitGround, null, this);
+		//console.log('player', this.player);
 	}
 
 	update() {
@@ -82,11 +83,21 @@ export class SimpleScene extends Phaser.Scene {
 		//let pgroup = this.add.container(200,200)
 		let saucer = this.add.sprite(0, 0, 'ship');
 		saucer.anims.play('spin', true);
+		this.physics.world.enable(saucer, 1);
+		saucer.setSize(128, 62);
+		saucer.body.allowGravity = false;
+		saucer.body.immovable = true;
+		this.physics.add.collider(saucer, this.worldLayer, this.HitGround, null, this);
 		let gear = this.add.sprite(0, 50, 'landing_gear');
+		this.physics.world.enable(gear, 1);
+		gear.setSize(128, 62);
+		gear.body.allowGravity = false;
+		gear.body.immovable = true;
+		this.physics.add.collider(gear, this.worldLayer, this.Touchdown, null, this);
 
 		//this.player = this.physics.add.sprite(400, 300, 'ship');
 		this.player = this.add.container(400, 200, [ saucer, gear ]);
-		this.player.setSize(128, 64);
+		this.player.setSize(128, 124);
     	this.physics.world.enable(this.player);
 		//player.body.setGravity(0,0);
 		//this.player.body.allowGravity = false;
@@ -114,6 +125,10 @@ export class SimpleScene extends Phaser.Scene {
 	}
 
 	HitGround(){
-		//console.log('Hit Ground')
+		console.log('Hit Ground')
+	}
+
+	Touchdown(){
+		console.log('Touchdown')
 	}
 }
