@@ -15,11 +15,7 @@ const appHtmlTitle = 'Webpack Boilerplate';
  * Webpack Configuration
  */
 module.exports = {
-    devtool: 'source-map',
     entry: {
-        vendor: [
-            'lodash'
-        ],
         bundle: path.join(dirApp, 'index')
     },
     resolve: {
