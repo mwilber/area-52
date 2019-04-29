@@ -8,6 +8,7 @@ export class SimpleScene extends Phaser.Scene {
 		this.player = null;
 		this.worldLayer = null;
 		this.landingLayer = null;
+		this.console = null;
 	}
 
 	preload() {
@@ -38,16 +39,20 @@ export class SimpleScene extends Phaser.Scene {
 		this.physics.add.collider(this.player, this.worldLayer, this.HitWorld, null, this);
 		this.physics.add.collider(this.player, this.landingLayer, this.HitLandingPad, null, this);
 		//console.log('player', this.player);
+
+		this.console = this.add.text(10, 10, '', { font: '16px Courier', fill: '#00ff00' });
 	}
 
 	update() {
 		if (this.cursors.left.isDown){
+			this.ConsoleWrite('left');
 			this.player.body.setAccelerationX(-500);
 			this.player.body.setAccelerationY(-500);
 			if(this.player.angle > -15){
 				this.player.setAngle(this.player.angle-1);
 			}
 		}else if (this.cursors.right.isDown){
+			this.ConsoleWrite('right');
 			this.player.body.setAccelerationX(500);
 			this.player.body.setAccelerationY(-500);
 			if(this.player.angle < 15){
@@ -118,7 +123,12 @@ export class SimpleScene extends Phaser.Scene {
 		//debugger;
 	}
 
-	HitLandingPad(event){
+	HitLandingPad(event, evtwo){
 		console.log('TOUCHDOWN!');
+		debugger;
+	}
+
+	ConsoleWrite(statement){
+		this.console.setText([statement,this.console.text]);
 	}
 }
