@@ -5,10 +5,13 @@ export class SimpleScene extends Phaser.Scene {
 			key: 'SimpleScene'
 		});
 
+		this.map = null;
+
 		this.player = null;
 		this.worldLayer = null;
 		this.landingLayer = null;
 		this.console = null;
+		this.testlayer = null;
 	}
 
 	preload() {
@@ -28,6 +31,8 @@ export class SimpleScene extends Phaser.Scene {
 
 		this.worldLayer = this.InitTileMaps();
 		this.landingLayer = this.InitLandingPads();
+
+		this.ConvertObjects();
 
 		this.InitPlayerAnims();
 		this.InitPlayerObject();
@@ -71,15 +76,26 @@ export class SimpleScene extends Phaser.Scene {
 			this.player.body.setAcceleration(0);
 		}
 
+		
+	}
 
+	ConvertObjects(){
+		const objects = this.map.getObjectLayer('Test'); //find the object layer in the tilemap named 'objects'
+
+		objects.objects.forEach(
+			(object) => {
+				debugger;
+			}
+		);
 	}
 
 	InitTileMaps(){
-		const map = this.make.tilemap({ key: "map" });
-		const tileset = map.addTilesetImage("Super Mario Tiles", "tiles");
+		//TODO: set this.map in the create method
+		this.map = this.make.tilemap({ key: "map" });
+		const tileset = this.map.addTilesetImage("Super Mario Tiles", "tiles");
 
-		const belowLayer = map.createStaticLayer("Background", tileset, 0, 0);
-		const worldLayer = map.createStaticLayer("World", tileset, 0, 0);
+		const belowLayer = this.map.createStaticLayer("Background", tileset, 0, 0);
+		const worldLayer = this.map.createStaticLayer("World", tileset, 0, 0);
 		  
 		worldLayer.setCollisionByProperty({ collides: true });
 
@@ -87,10 +103,9 @@ export class SimpleScene extends Phaser.Scene {
 	}
 
 	InitLandingPads(){
-		const map = this.make.tilemap({ key: "map" });
-		const tileset = map.addTilesetImage("Super Mario Tiles", "tiles");
+		const tileset = this.map.addTilesetImage("Super Mario Tiles", "tiles");
 
-		const landingLayer = map.createStaticLayer("LandingPads", tileset, 0, 0);
+		const landingLayer = this.map.createStaticLayer("LandingPads", tileset, 0, 0);
 		  
 		landingLayer.setCollisionByProperty({ landingpad: true });
 
@@ -125,7 +140,7 @@ export class SimpleScene extends Phaser.Scene {
 
 	HitLandingPad(event, evtwo){
 		console.log('TOUCHDOWN!');
-		debugger;
+		//debugger;
 	}
 
 	ConsoleWrite(statement){

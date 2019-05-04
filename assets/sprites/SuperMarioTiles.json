@@ -39,9 +39,54 @@
          "width":25,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":4,
+         "name":"Test",
+         "objects":[
+                {
+                 "height":92,
+                 "id":1,
+                 "name":"Pad",
+                 "properties":[
+                        {
+                         "name":"padnum",
+                         "type":"int",
+                         "value":1
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":150,
+                 "x":580,
+                 "y":2942
+                }, 
+                {
+                 "height":92,
+                 "id":2,
+                 "name":"Pad",
+                 "properties":[
+                        {
+                         "name":"padnum",
+                         "type":"int",
+                         "value":2
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":150,
+                 "x":68,
+                 "y":2720
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
         }],
- "nextlayerid":4,
- "nextobjectid":1,
+ "nextlayerid":5,
+ "nextobjectid":3,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.2.3",
