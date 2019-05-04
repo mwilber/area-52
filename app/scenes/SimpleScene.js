@@ -83,7 +83,15 @@ export class SimpleScene extends Phaser.Scene {
 
 		objects.objects.forEach(
 			(object) => {
-				let tmp = this.add.rectangle(object.x, object.y, object.width, object.height, 0xff0000);
+				let tmp = this.add.rectangle((object.x+(object.width/2)), (object.y+(object.height/2)), object.width, object.height, 0xff0000);
+				tmp.properties = {};
+				// Add pad number property
+				for (let property of object.properties) {
+					if (property.name === 'padnum') {
+					  tmp.properties['padnum'] = property.value;
+					  break;
+					}
+				}
 				this.physics.world.enable(tmp, 1);
 				this.physics.add.collider(this.player, tmp, this.HitLandingPad, null, this);
 				//debugger;
@@ -141,7 +149,7 @@ export class SimpleScene extends Phaser.Scene {
 	}
 
 	HitLandingPad(event, evtwo){
-		console.log('TOUCHDOWN!');
+		console.log('TOUCHDOWN!', evtwo.properties.padnum);
 		//debugger;
 	}
 
