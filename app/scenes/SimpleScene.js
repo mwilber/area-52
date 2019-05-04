@@ -32,11 +32,10 @@ export class SimpleScene extends Phaser.Scene {
 		this.worldLayer = this.InitTileMaps();
 		this.landingLayer = this.InitLandingPads();
 
-		this.ConvertObjects();
-
 		this.InitPlayerAnims();
 		this.InitPlayerObject();
 		
+		this.ConvertObjects();
 
 		//the camera will follow the player in the world
 		this.cameras.main.startFollow(this.player);
@@ -84,7 +83,10 @@ export class SimpleScene extends Phaser.Scene {
 
 		objects.objects.forEach(
 			(object) => {
-				debugger;
+				let tmp = this.add.rectangle(object.x, object.y, object.width, object.height, 0xff0000);
+				this.physics.world.enable(tmp, 1);
+				this.physics.add.collider(this.player, tmp, this.HitLandingPad, null, this);
+				//debugger;
 			}
 		);
 	}
