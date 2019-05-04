@@ -41,7 +41,7 @@ export class SimpleScene extends Phaser.Scene {
 		this.cameras.main.startFollow(this.player);
 
 		this.physics.add.collider(this.player, this.worldLayer, this.HitWorld, null, this);
-		this.physics.add.collider(this.player, this.landingLayer, this.HitLandingPad, null, this);
+		//this.physics.add.collider(this.player, this.landingLayer, this.HitLandingPad, null, this);
 		//console.log('player', this.player);
 
 		this.console = this.add.text(10, 10, '', { font: '16px Courier', fill: '#00ff00' });
@@ -83,7 +83,7 @@ export class SimpleScene extends Phaser.Scene {
 
 		objects.objects.forEach(
 			(object) => {
-				let tmp = this.add.rectangle((object.x+(object.width/2)), (object.y+(object.height/2)), object.width, object.height, 0xff0000);
+				let tmp = this.add.rectangle((object.x+(object.width/2)), (object.y+(object.height/2)), object.width, object.height);
 				tmp.properties = {};
 				// Add pad number property
 				for (let property of object.properties) {
@@ -93,7 +93,7 @@ export class SimpleScene extends Phaser.Scene {
 					}
 				}
 				this.physics.world.enable(tmp, 1);
-				this.physics.add.overlap(this.player, tmp, this.HitLandingPad, null, this);
+				this.physics.add.collider(this.player, tmp, this.HitLandingPad, null, this);
 				//debugger;
 			}
 		);

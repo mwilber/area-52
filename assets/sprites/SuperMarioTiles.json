@@ -46,7 +46,7 @@
          "name":"Test",
          "objects":[
                 {
-                 "height":92,
+                 "height":32,
                  "id":1,
                  "name":"Pad",
                  "properties":[
@@ -58,12 +58,12 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":150,
-                 "x":580,
-                 "y":2942
+                 "width":160,
+                 "x":577,
+                 "y":3041
                 }, 
                 {
-                 "height":92,
+                 "height":32,
                  "id":2,
                  "name":"Pad",
                  "properties":[
@@ -75,9 +75,9 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":150,
-                 "x":68,
-                 "y":2720
+                 "width":160,
+                 "x":64,
+                 "y":2816
                 }],
          "opacity":1,
          "type":"objectgroup",
