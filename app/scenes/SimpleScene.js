@@ -93,7 +93,7 @@ export class SimpleScene extends Phaser.Scene {
 					}
 				}
 				this.physics.world.enable(tmp, 1);
-				this.physics.add.collider(this.player, tmp, this.HitLandingPad, null, this);
+				this.physics.add.overlap(this.player, tmp, this.HitLandingPad, null, this);
 				//debugger;
 			}
 		);
