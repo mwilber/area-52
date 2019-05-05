@@ -8,6 +8,8 @@ export class SimpleScene extends Phaser.Scene {
 		this.map = null;
 
 		this.player = null;
+		this.saucer = null;
+		this.gear = null;
 		this.worldLayer = null;
 		this.landingLayer = null;
 		this.console = null;
@@ -40,7 +42,7 @@ export class SimpleScene extends Phaser.Scene {
 		//the camera will follow the player in the world
 		this.cameras.main.startFollow(this.player);
 
-		this.physics.add.collider(this.player, this.worldLayer, this.HitWorld, null, this);
+		//this.physics.add.collider(this.player, this.worldLayer, this.HitWorld, null, this);
 		//this.physics.add.collider(this.player, this.landingLayer, this.HitLandingPad, null, this);
 		//console.log('player', this.player);
 
@@ -93,7 +95,7 @@ export class SimpleScene extends Phaser.Scene {
 					}
 				}
 				this.physics.world.enable(tmp, 1);
-				this.physics.add.collider(this.player, tmp, this.HitLandingPad, null, this);
+				this.physics.add.collider(this.gear, tmp, this.HitLandingPad, null, this);
 				//debugger;
 			}
 		);
@@ -123,15 +125,34 @@ export class SimpleScene extends Phaser.Scene {
 	}
 
 	InitPlayerObject(){
-		this.player = this.physics.add.sprite(400, 3000, 'ship');
+		this.saucer = this.add.sprite(0, 0, 'ship');
+		this.saucer.anims.play('spin', true);
+		//this.physics.world.enable(saucer, 1);
+		//saucer.setSize(128, 62);
+		//saucer.body.allowGravity = false;
+		//saucer.body.immovable = true;
+		//this.physics.add.collider(saucer, this.worldLayer, this.HitGround, null, this);
+		this.gear = this.add.sprite(0, 50, 'landing_gear');
+		//gear.body.allowGravity = false;
+		//gear.body.immovable = true;
+		//this.physics.add.collider(gear, this.worldLayer, this.Touchdown, null, this);
+
+		//this.player = this.physics.add.sprite(400, 3000, 'ship');
+		this.player = this.add.container(400, 2400, [ this.saucer, this.gear ]);
+
+		this.physics.world.enable(this.gear, 1);
+		this.gear.setSize(128, 62);
+
+		this.player.setSize(128, 124);
 		this.player.setActive(true);
 		this.player.setScale(0.5);
+		this.physics.world.enable(this.player);
 		this.player.body.setGravity(0,-100);
 		this.player.body.setAllowDrag(true);
 		this.player.body.setDrag(70, 70);
 		this.player.body.setFriction(0.7, 0);
-		this.player.setCollideWorldBounds(true);
-		this.player.anims.play('spin', true);
+		this.player.body.setCollideWorldBounds(true);
+		//this.player.anims.play('spin', true);
 	}
 
 	InitPlayerAnims(){
