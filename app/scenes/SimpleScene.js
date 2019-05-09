@@ -77,6 +77,17 @@ export class SimpleScene extends Phaser.Scene {
 			this.player.body.setAcceleration(0);
 		}
 
+		if(this.cursors.space.isDown){
+			if(this.gear.visible){
+				this.gear.visible = false;
+				this.player.body.height = 31;
+			}else{
+				this.gear.visible = true;
+				this.player.body.height = 62;
+			}
+			
+		}
+
 		
 	}
 
@@ -125,27 +136,25 @@ export class SimpleScene extends Phaser.Scene {
 	}
 
 	InitPlayerObject(){
-		this.saucer = this.add.sprite(0, 0, 'ship');
+		this.saucer = this.add.sprite(48, 16, 'ship');
 		this.saucer.anims.play('spin', true);
 		//this.physics.world.enable(saucer, 1);
 		//saucer.setSize(128, 62);
 		//saucer.body.allowGravity = false;
 		//saucer.body.immovable = true;
 		
-		this.gear = this.add.sprite(0, 50, 'landing_gear');
+		this.gear = this.add.sprite(48, 66, 'landing_gear');
 		//gear.body.allowGravity = false;
 		//gear.body.immovable = true;
 		//this.physics.add.collider(gear, this.worldLayer, this.Touchdown, null, this);
 
 		//this.player = this.physics.add.sprite(400, 3000, 'ship');
 		this.player = this.add.container(400, 2400, [ this.saucer, this.gear ]);
-
-		this.physics.world.enable(this.player, 0);
-		this.player.setSize(192, 50);
-
-		//this.player.setSize(128, 124);
+		this.player.setSize(96, 31);
 		this.player.setActive(true);
 		this.player.setScale(0.5);
+
+		this.physics.world.enable(this.player, 0);
 		this.player.body.setGravity(0,-100);
 		this.player.body.setAllowDrag(true);
 		this.player.body.setDrag(70, 70);
@@ -170,7 +179,11 @@ export class SimpleScene extends Phaser.Scene {
 	}
 
 	HitLandingPad(event, evtwo){
-		if(event.body.touching.up || event.body.touching.left || event.body.touching.right){
+		if( !this.gear.visible || 
+			event.body.touching.up || 
+			event.body.touching.left || 
+			event.body.touching.right
+		){
 			this.HitWorld();
 		}else{
 			console.log('TOUCHDOWN!', evtwo.properties.padnum, event.body.touching.down);
