@@ -64,10 +64,6 @@ export class SimpleScene extends Phaser.Scene {
 			if(this.player.angle < 15){
 				this.player.setAngle(this.player.angle+1);
 			}
-		//}else if (this.cursors.up.isDown){
-		//	this.player.setAccelerationY(-250);
-		//}else if (this.cursors.down.isDown){
-		//	this.player.setAccelerationY(250);
 		}else{
 			if(Math.abs(this.player.angle) < 1){
 				this.player.setAngle(0);
@@ -111,6 +107,8 @@ export class SimpleScene extends Phaser.Scene {
 					}
 				}
 				this.physics.world.enable(tmp, 1);
+				//tmp.body.setAllowGravity(false);
+				//tmp.body.setFriction(1, 1);
 				this.physics.add.collider(this.player, tmp, this.HitLandingPad, null, this);
 				//debugger;
 			}
@@ -143,29 +141,22 @@ export class SimpleScene extends Phaser.Scene {
 	InitPlayerObject(){
 		this.saucer = this.add.sprite(48, 16, 'ship');
 		this.saucer.anims.play('spin', true);
-		//this.physics.world.enable(saucer, 1);
-		//saucer.setSize(128, 62);
-		//saucer.body.allowGravity = false;
-		//saucer.body.immovable = true;
 		
 		this.gear = this.add.sprite(48, 66, 'landing_gear');
 		this.gear.visible = false;
 		this.gear.relax = 0;
-		//gear.body.allowGravity = false;
-		//gear.body.immovable = true;
-		//this.physics.add.collider(gear, this.worldLayer, this.Touchdown, null, this);
 
-		//this.player = this.physics.add.sprite(400, 3000, 'ship');
 		this.player = this.add.container(400, 2400, [ this.saucer, this.gear ]);
 		this.player.setSize(96, 31);
 		this.player.setActive(true);
 		this.player.setScale(0.5);
 
 		this.physics.world.enable(this.player, 0);
+		this.player.body.setBounceY(0.2);
 		this.player.body.setGravity(0,-100);
 		this.player.body.setAllowDrag(true);
 		this.player.body.setDrag(70, 70);
-		this.player.body.setFriction(0.7, 0);
+		this.player.body.setFriction(1, 0);
 		this.player.body.setCollideWorldBounds(true);
 		//this.player.anims.play('spin', true);
 		this.physics.add.collider(this.gear, this.worldLayer, this.HitGround, null, this);
