@@ -78,13 +78,13 @@ export class SimpleScene extends Phaser.Scene {
 		}
 
 		if(this.cursors.space.isDown && this.gear.relax === 0){
-			this.gear.relax = 5;
+			this.gear.relax = 10;
 			if(this.gear.visible){
 				this.gear.visible = false;
 				this.player.body.height = 31;
 			}else{
 				this.gear.visible = true;
-				this.player.body.height = 62;
+				this.player.body.height = 55;
 			}
 			
 		}
