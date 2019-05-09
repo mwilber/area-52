@@ -140,14 +140,14 @@ export class SimpleScene extends Phaser.Scene {
 		//this.player = this.physics.add.sprite(400, 3000, 'ship');
 		this.player = this.add.container(400, 2400, [ this.saucer, this.gear ]);
 
-		this.physics.world.enable(this.gear, 1);
-		this.gear.setSize(128, 62);
+		this.physics.world.enable(this.player, 1);
+		this.player.setSize(192, 50);
 
-		this.player.setSize(128, 124);
+		//this.player.setSize(128, 124);
 		this.player.setActive(true);
 		this.player.setScale(0.5);
 		this.physics.world.enable(this.player);
-		this.player.body.setGravity(0,-100);
+		this.player.setGravity(0,-100);
 		this.player.body.setAllowDrag(true);
 		this.player.body.setDrag(70, 70);
 		this.player.body.setFriction(0.7, 0);
