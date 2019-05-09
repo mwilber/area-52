@@ -131,7 +131,7 @@ export class SimpleScene extends Phaser.Scene {
 		//saucer.setSize(128, 62);
 		//saucer.body.allowGravity = false;
 		//saucer.body.immovable = true;
-		//this.physics.add.collider(saucer, this.worldLayer, this.HitGround, null, this);
+		
 		this.gear = this.add.sprite(0, 50, 'landing_gear');
 		//gear.body.allowGravity = false;
 		//gear.body.immovable = true;
@@ -153,6 +153,7 @@ export class SimpleScene extends Phaser.Scene {
 		this.player.body.setFriction(0.7, 0);
 		this.player.body.setCollideWorldBounds(true);
 		//this.player.anims.play('spin', true);
+		this.physics.add.collider(this.gear, this.worldLayer, this.HitGround, null, this);
 	}
 
 	InitPlayerAnims(){
