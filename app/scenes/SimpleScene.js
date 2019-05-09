@@ -42,7 +42,7 @@ export class SimpleScene extends Phaser.Scene {
 		//the camera will follow the player in the world
 		this.cameras.main.startFollow(this.player);
 
-		//this.physics.add.collider(this.player, this.worldLayer, this.HitWorld, null, this);
+		this.physics.add.collider(this.player, this.worldLayer, this.HitWorld, null, this);
 		//this.physics.add.collider(this.player, this.landingLayer, this.HitLandingPad, null, this);
 		//console.log('player', this.player);
 
@@ -95,7 +95,7 @@ export class SimpleScene extends Phaser.Scene {
 					}
 				}
 				this.physics.world.enable(tmp, 1);
-				this.physics.add.collider(this.gear, tmp, this.HitLandingPad, null, this);
+				this.physics.add.collider(this.player, tmp, this.HitLandingPad, null, this);
 				//debugger;
 			}
 		);
@@ -140,14 +140,13 @@ export class SimpleScene extends Phaser.Scene {
 		//this.player = this.physics.add.sprite(400, 3000, 'ship');
 		this.player = this.add.container(400, 2400, [ this.saucer, this.gear ]);
 
-		this.physics.world.enable(this.player, 1);
+		this.physics.world.enable(this.player, 0);
 		this.player.setSize(192, 50);
 
 		//this.player.setSize(128, 124);
 		this.player.setActive(true);
 		this.player.setScale(0.5);
-		this.physics.world.enable(this.player);
-		this.player.setGravity(0,-100);
+		this.player.body.setGravity(0,-100);
 		this.player.body.setAllowDrag(true);
 		this.player.body.setDrag(70, 70);
 		this.player.body.setFriction(0.7, 0);
@@ -171,7 +170,11 @@ export class SimpleScene extends Phaser.Scene {
 	}
 
 	HitLandingPad(event, evtwo){
-		console.log('TOUCHDOWN!', evtwo.properties.padnum);
+		if(event.body.touching.up || event.body.touching.left || event.body.touching.right){
+			this.HitWorld();
+		}else{
+			console.log('TOUCHDOWN!', evtwo.properties.padnum, event.body.touching.down);
+		}
 		//debugger;
 	}
 
