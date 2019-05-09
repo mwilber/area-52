@@ -77,7 +77,8 @@ export class SimpleScene extends Phaser.Scene {
 			this.player.body.setAcceleration(0);
 		}
 
-		if(this.cursors.space.isDown){
+		if(this.cursors.space.isDown && this.gear.relax === 0){
+			this.gear.relax = 5;
 			if(this.gear.visible){
 				this.gear.visible = false;
 				this.player.body.height = 31;
@@ -86,6 +87,10 @@ export class SimpleScene extends Phaser.Scene {
 				this.player.body.height = 62;
 			}
 			
+		}
+
+		if(this.gear.relax !== 0){
+			this.gear.relax = Math.abs(this.gear.relax) - 1;
 		}
 
 		
@@ -144,6 +149,7 @@ export class SimpleScene extends Phaser.Scene {
 		//saucer.body.immovable = true;
 		
 		this.gear = this.add.sprite(48, 66, 'landing_gear');
+		this.gear.relax = 0;
 		//gear.body.allowGravity = false;
 		//gear.body.immovable = true;
 		//this.physics.add.collider(gear, this.worldLayer, this.Touchdown, null, this);
