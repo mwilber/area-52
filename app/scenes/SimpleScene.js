@@ -149,6 +149,7 @@ export class SimpleScene extends Phaser.Scene {
 		//saucer.body.immovable = true;
 		
 		this.gear = this.add.sprite(48, 66, 'landing_gear');
+		this.gear.visible = false;
 		this.gear.relax = 0;
 		//gear.body.allowGravity = false;
 		//gear.body.immovable = true;
