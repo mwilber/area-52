@@ -12,6 +12,8 @@ export class SimpleScene extends Phaser.Scene {
 		this.landingLayer = null;
 		this.console = null;
 		this.testlayer = null;
+
+		this.scoreboard = null;
 	}
 
 	preload() {
@@ -20,6 +22,8 @@ export class SimpleScene extends Phaser.Scene {
 		this.load.image('landing_gear', 'assets/sprites/LandingGear.png');
 		this.load.image('tiles', 'assets/sprites/super-mario-tiles.png');
 		this.load.tilemapTiledJSON("map", "assets/sprites/SuperMarioTiles.json");
+
+		this.load.html('scoreboard', 'assets/html/hud.html');
 	}
 
 	create() {
@@ -45,18 +49,22 @@ export class SimpleScene extends Phaser.Scene {
 		//console.log('player', this.player);
 
 		this.console = this.add.text(10, 10, '', { font: '16px Courier', fill: '#00ff00' });
+
+		this.scoreboard = this.add.dom(100, 100 ).createFromCache('scoreboard');
+		//debugger;
+		//this.hud.setPerspective(800);
 	}
 
 	update() {
 		if (this.cursors.left.isDown){
-			this.ConsoleWrite('left');
+			//this.ConsoleWrite('left');
 			this.player.body.setAccelerationX(-500);
 			this.player.body.setAccelerationY(-500);
 			if(this.player.angle > -15){
 				this.player.setAngle(this.player.angle-1);
 			}
 		}else if (this.cursors.right.isDown){
-			this.ConsoleWrite('right');
+			//this.ConsoleWrite('right');
 			this.player.body.setAccelerationX(500);
 			this.player.body.setAccelerationY(-500);
 			if(this.player.angle < 15){

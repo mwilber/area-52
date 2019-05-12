@@ -5,9 +5,13 @@ import { SimpleScene } from './scenes/SimpleScene';
 import 'styles/index.scss';
 
 const gameConfig = {
-  type: Phaser.AUTO,
+    type: Phaser.AUTO,
     width: 800,
     height: 600,
+    parent: 'phaser-game',
+    dom: {
+        createContainer: true
+    },
     physics: {
         default: 'arcade',
         arcade: {
