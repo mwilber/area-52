@@ -51,6 +51,7 @@ export class SimpleScene extends Phaser.Scene {
 		this.console = this.add.text(10, 10, '', { font: '16px Courier', fill: '#00ff00' });
 
 		this.scoreboard = this.add.dom(100, 100 ).createFromCache('scoreboard').setScrollFactor(0);
+		
 		//debugger;
 		//this.hud.setPerspective(800);
 	}
@@ -152,13 +153,19 @@ export class SimpleScene extends Phaser.Scene {
 	}
 
 	HitWorld(event){
-		console.log('Hit Ground');
+		//console.log('Hit Ground');
 		//debugger;
+		this.SetHudPad('DEAD!')
 	}
 
 	HitLandingPad(event, evtwo){
-		console.log('TOUCHDOWN!', evtwo.properties.padnum);
+		//console.log('TOUCHDOWN!', evtwo.properties.padnum);
 		//debugger;
+		this.SetHudPad('Landed: Pad '+evtwo.properties.padnum);
+	}
+
+	SetHudPad(txtOut){
+		this.scoreboard.getChildByID('hud-pad').innerHTML = txtOut;
 	}
 
 	ConsoleWrite(statement){
