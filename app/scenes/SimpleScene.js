@@ -42,7 +42,7 @@ export class SimpleScene extends Phaser.Scene {
 		this.ConvertObjects();
 
 		//the camera will follow the player in the world
-		this.cameras.main.startFollow(this.player);
+		this.cameras.main.startFollow(this.player, true);
 
 		this.physics.add.collider(this.player, this.worldLayer, this.HitWorld, null, this);
 		//this.physics.add.collider(this.player, this.landingLayer, this.HitLandingPad, null, this);
@@ -50,7 +50,7 @@ export class SimpleScene extends Phaser.Scene {
 
 		this.console = this.add.text(10, 10, '', { font: '16px Courier', fill: '#00ff00' });
 
-		this.scoreboard = this.add.dom(100, 100 ).createFromCache('scoreboard');
+		this.scoreboard = this.add.dom(100, 100 ).createFromCache('scoreboard').setScrollFactor(0);
 		//debugger;
 		//this.hud.setPerspective(800);
 	}
