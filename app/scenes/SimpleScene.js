@@ -14,6 +14,8 @@ export class SimpleScene extends Phaser.Scene {
 		this.landingLayer = null;
 		this.console = null;
 		this.testlayer = null;
+
+		this.scoreboard = null;
 	}
 
 	preload() {
@@ -22,6 +24,8 @@ export class SimpleScene extends Phaser.Scene {
 		this.load.image('landing_gear', 'assets/sprites/LandingGear.png');
 		this.load.image('tiles', 'assets/sprites/super-mario-tiles.png');
 		this.load.tilemapTiledJSON("map", "assets/sprites/SuperMarioTiles.json");
+
+		this.load.html('scoreboard', 'assets/html/hud.html');
 	}
 
 	create() {
@@ -40,25 +44,30 @@ export class SimpleScene extends Phaser.Scene {
 		this.ConvertObjects();
 
 		//the camera will follow the player in the world
-		this.cameras.main.startFollow(this.player);
+		this.cameras.main.startFollow(this.player, true);
 
 		this.physics.add.collider(this.player, this.worldLayer, this.HitWorld, null, this);
 		//this.physics.add.collider(this.player, this.landingLayer, this.HitLandingPad, null, this);
 		//console.log('player', this.player);
 
 		this.console = this.add.text(10, 10, '', { font: '16px Courier', fill: '#00ff00' });
+
+		this.scoreboard = this.add.dom(100, 100 ).createFromCache('scoreboard').setScrollFactor(0);
+		
+		//debugger;
+		//this.hud.setPerspective(800);
 	}
 
 	update() {
 		if (this.cursors.left.isDown){
-			this.ConsoleWrite('left');
+			//this.ConsoleWrite('left');
 			this.player.body.setAccelerationX(-500);
 			this.player.body.setAccelerationY(-500);
 			if(this.player.angle > -15){
 				this.player.setAngle(this.player.angle-1);
 			}
 		}else if (this.cursors.right.isDown){
-			this.ConsoleWrite('right');
+			//this.ConsoleWrite('right');
 			this.player.body.setAccelerationX(500);
 			this.player.body.setAccelerationY(-500);
 			if(this.player.angle < 15){
@@ -172,8 +181,9 @@ export class SimpleScene extends Phaser.Scene {
 	}
 
 	HitWorld(event){
-		console.log('Hit Ground');
+		//console.log('Hit Ground');
 		//debugger;
+		this.SetHudPad('DEAD!')
 	}
 
 	HitLandingPad(event, evtwo){
@@ -184,9 +194,14 @@ export class SimpleScene extends Phaser.Scene {
 		){
 			this.HitWorld();
 		}else{
-			console.log('TOUCHDOWN!', evtwo.properties.padnum, event.body.touching.down);
+			//console.log('TOUCHDOWN!', evtwo.properties.padnum, event.body.touching.down);
 		}
 		//debugger;
+		this.SetHudPad('Landed: Pad '+evtwo.properties.padnum);
+	}
+
+	SetHudPad(txtOut){
+		this.scoreboard.getChildByID('hud-pad').innerHTML = txtOut;
 	}
 
 	ConsoleWrite(statement){
