@@ -157,7 +157,7 @@ export class SimpleScene extends Phaser.Scene {
 		this.gear.visible = true;
 		this.gear.relax = 0;
 
-		this.player = this.add.container(400, 2400, [ this.saucer, this.gear ]);
+		this.player = this.add.container(400, 3000, [ this.saucer, this.gear ]);
 		this.player.setSize(96, 55);
 		this.player.setActive(true);
 		this.player.setScale(0.5);
