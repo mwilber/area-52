@@ -194,10 +194,8 @@ export class SimpleScene extends Phaser.Scene {
 		){
 			this.HitWorld();
 		}else{
-			//console.log('TOUCHDOWN!', evtwo.properties.padnum, event.body.touching.down);
+			this.SetHudPad('Landed: Pad '+evtwo.properties.padnum);
 		}
-		//debugger;
-		this.SetHudPad('Landed: Pad '+evtwo.properties.padnum);
 	}
 
 	SetHudPad(txtOut){
