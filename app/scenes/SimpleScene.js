@@ -99,7 +99,6 @@ export class SimpleScene extends Phaser.Scene {
 		if(this.gear.relax !== 0){
 			this.gear.relax = Math.abs(this.gear.relax) - 1;
 		}
-
 		
 	}
 
@@ -185,7 +184,10 @@ export class SimpleScene extends Phaser.Scene {
 	HitWorld(event){
 		//console.log('Hit Ground');
 		//debugger;
-		this.SetHudPad('DEAD!')
+		this.bank = 0;
+		this.order = 0;
+		this.SetHudPad('DEAD!');
+		this.SetHudBank();
 	}
 
 	HitLandingPad(event, evtwo){
@@ -197,7 +199,27 @@ export class SimpleScene extends Phaser.Scene {
 			this.HitWorld();
 		}else{
 			//this.SetHudPad('Landed: Pad '+evtwo.properties.padnum);
+			console.log(evtwo.properties.padnum, this.order);
+			if( evtwo.properties.padnum === this.order ){
+				if( this.order === 0 ){
+					this.SetOrder(1);
+				}else{
+					this.SetOrderReceived();
+				}
+			}
 		}
+	}
+
+	SetOrder(padNum){
+		this.order = padNum;
+		this.SetHudPad('Deliver to pad '+this.order);
+	}
+
+	SetOrderReceived(){
+		this.order = 0;
+		this.bank += 5;
+		this.SetHudPad('Thanks!');
+		this.SetHudBank();
 	}
 
 	SetHudPad(txtOut){
@@ -205,7 +227,7 @@ export class SimpleScene extends Phaser.Scene {
 	}
 
 	SetHudBank(){
-		this.scoreboard.getChildByID('hud-bank').innerHTML = '$'+this.bank.toString;
+		this.scoreboard.getChildByID('hud-bank').innerHTML = '$'+this.bank.toString();
 	}
 
 	ConsoleWrite(statement){
