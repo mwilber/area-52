@@ -54,7 +54,7 @@ export class SimpleScene extends Phaser.Scene {
 
 		this.console = this.add.text(10, 10, '', { font: '16px Courier', fill: '#00ff00' });
 
-		this.scoreboard = this.add.dom(100, 100 ).createFromCache('scoreboard').setScrollFactor(0);
+		this.scoreboard = this.add.dom(120, 65 ).createFromCache('scoreboard').setScrollFactor(0);
 		
 		//debugger;
 		//this.hud.setPerspective(800);
@@ -207,7 +207,6 @@ export class SimpleScene extends Phaser.Scene {
 			this.HitWorld();
 		}else{
 			//this.SetHudPad('Landed: Pad '+evtwo.properties.padnum);
-			console.log(evtwo.properties.padnum, this.order);
 			if( evtwo.properties.padnum === this.order ){
 				if( this.order === 0 ){
 					this.SetOrder(this.ChooseOrderPad());
