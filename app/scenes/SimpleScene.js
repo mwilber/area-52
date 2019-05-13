@@ -13,7 +13,7 @@ export class SimpleScene extends Phaser.Scene {
 		this.worldLayer = null;
 		this.landingLayer = null;
 		this.console = null;
-		this.testlayer = null;
+		this.landingObjectLayer = [];
 
 		this.scoreboard = null;
 		this.bank = 0;
@@ -121,6 +121,7 @@ export class SimpleScene extends Phaser.Scene {
 				//tmp.body.setFriction(1, 1);
 				this.physics.add.collider(this.player, tmp, this.HitLandingPad, null, this);
 				//debugger;
+				this.landingObjectLayer.push(tmp);
 			}
 		);
 	}
@@ -202,12 +203,17 @@ export class SimpleScene extends Phaser.Scene {
 			console.log(evtwo.properties.padnum, this.order);
 			if( evtwo.properties.padnum === this.order ){
 				if( this.order === 0 ){
-					this.SetOrder(1);
+					this.SetOrder(this.ChooseOrderPad());
 				}else{
 					this.SetOrderReceived();
 				}
 			}
 		}
+	}
+
+	ChooseOrderPad(){
+		// Discount the restaurant (pad 0).
+		return Math.floor(Math.random()*(this.landingObjectLayer.length-1))+1;
 	}
 
 	SetOrder(padNum){
