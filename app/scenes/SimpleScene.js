@@ -16,6 +16,8 @@ export class SimpleScene extends Phaser.Scene {
 		this.testlayer = null;
 
 		this.scoreboard = null;
+		this.bank = 0;
+		this.order = 0;
 	}
 
 	preload() {
@@ -152,11 +154,11 @@ export class SimpleScene extends Phaser.Scene {
 		this.saucer.anims.play('spin', true);
 		
 		this.gear = this.add.sprite(48, 66, 'landing_gear');
-		this.gear.visible = false;
+		this.gear.visible = true;
 		this.gear.relax = 0;
 
 		this.player = this.add.container(400, 2400, [ this.saucer, this.gear ]);
-		this.player.setSize(96, 31);
+		this.player.setSize(96, 55);
 		this.player.setActive(true);
 		this.player.setScale(0.5);
 
@@ -194,12 +196,16 @@ export class SimpleScene extends Phaser.Scene {
 		){
 			this.HitWorld();
 		}else{
-			this.SetHudPad('Landed: Pad '+evtwo.properties.padnum);
+			//this.SetHudPad('Landed: Pad '+evtwo.properties.padnum);
 		}
 	}
 
 	SetHudPad(txtOut){
 		this.scoreboard.getChildByID('hud-pad').innerHTML = txtOut;
+	}
+
+	SetHudBank(){
+		this.scoreboard.getChildByID('hud-bank').innerHTML = '$'+this.bank.toString;
 	}
 
 	ConsoleWrite(statement){

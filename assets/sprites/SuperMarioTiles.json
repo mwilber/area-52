@@ -78,6 +78,48 @@
                  "width":160,
                  "x":64,
                  "y":2816
+                }, 
+                {
+                 "height":32.84375,
+                 "id":4,
+                 "name":"Pad",
+                 "properties":[
+                        {
+                         "name":"padnum",
+                         "type":"int",
+                         "value":0
+                        }],
+                 "rotation":0,
+                 "text":
+                    {
+                     "color":"#ffffff",
+                     "halign":"center",
+                     "text":"0",
+                     "valign":"center",
+                     "wrap":true
+                    },
+                 "type":"",
+                 "visible":true,
+                 "width":288.546875,
+                 "x":192.2265625,
+                 "y":3136.578125
+                }, 
+                {
+                 "height":32,
+                 "id":5,
+                 "name":"Pad",
+                 "properties":[
+                        {
+                         "name":"padnum",
+                         "type":"int",
+                         "value":3
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":160,
+                 "x":576,
+                 "y":2815
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -86,7 +128,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":3,
+ "nextobjectid":6,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.2.3",
