@@ -122,6 +122,13 @@ export class SimpleScene extends Phaser.Scene {
 				this.physics.add.collider(this.player, tmp, this.HitLandingPad, null, this);
 				//debugger;
 				this.landingObjectLayer.push(tmp);
+
+				// Add pad label
+				if(tmp.properties.padnum !== 0){
+					let xoffset = (tmp.width*.7);
+					if(tmp.x > (this.map.widthInPixels/2)) xoffset = -xoffset;
+					this.add.text((tmp.x-xoffset), (tmp.y-tmp.height), tmp.properties.padnum, { color: '#ffffff', textAlagn: 'center' });
+				}
 			}
 		);
 	}
