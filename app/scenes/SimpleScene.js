@@ -194,8 +194,10 @@ export class SimpleScene extends Phaser.Scene {
 		//debugger;
 		this.bank = 0;
 		this.order = 0;
-		this.SetHudPad('DEAD!');
-		this.SetHudBank();
+		this.landingObjectLayer = [];
+		// this.SetHudPad('DEAD!');
+		// this.SetHudBank();
+		this.scene.restart();
 	}
 
 	HitLandingPad(event, evtwo){
