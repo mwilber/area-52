@@ -64,14 +64,14 @@ export class SimpleScene extends Phaser.Scene {
 		if (this.cursors.left.isDown){
 			//this.ConsoleWrite('left');
 			this.player.body.setAccelerationX(-500);
-			this.player.body.setAccelerationY(-500);
+			if(!this.gear.visible) this.player.body.setAccelerationY(-500);
 			if(this.player.angle > -15){
 				this.player.setAngle(this.player.angle-1);
 			}
 		}else if (this.cursors.right.isDown){
 			//this.ConsoleWrite('right');
 			this.player.body.setAccelerationX(500);
-			this.player.body.setAccelerationY(-500);
+			if(!this.gear.visible) this.player.body.setAccelerationY(-500);
 			if(this.player.angle < 15){
 				this.player.setAngle(this.player.angle+1);
 			}
@@ -82,6 +82,10 @@ export class SimpleScene extends Phaser.Scene {
 				this.player.setAngle(this.player.angle*0.7);
 			}
 			this.player.body.setAcceleration(0);
+		}
+
+		if(this.gear.visible){
+			this.player.body.setAccelerationY(-175);
 		}
 
 		if(this.cursors.space.isDown && this.gear.relax === 0){
