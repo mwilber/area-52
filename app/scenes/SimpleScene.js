@@ -62,6 +62,10 @@ export class SimpleScene extends Phaser.Scene {
 
 	update() {
 		if (this.cursors.left.isDown){
+			if(this.gear.landed){
+				this.gear.landed = false;
+				this.ToggleGear();
+			}
 			//this.ConsoleWrite('left');
 			this.player.body.setAccelerationX(-500);
 			if(!this.gear.visible) this.player.body.setAccelerationY(-500);
@@ -69,6 +73,10 @@ export class SimpleScene extends Phaser.Scene {
 				this.player.setAngle(this.player.angle-1);
 			}
 		}else if (this.cursors.right.isDown){
+			if(this.gear.landed){
+				this.gear.landed = false;
+				this.ToggleGear();
+			}
 			//this.ConsoleWrite('right');
 			this.player.body.setAccelerationX(500);
 			if(!this.gear.visible) this.player.body.setAccelerationY(-500);
@@ -89,21 +97,24 @@ export class SimpleScene extends Phaser.Scene {
 		}
 
 		if(this.cursors.space.isDown && this.gear.relax === 0){
-			this.gear.relax = 10;
-			if(this.gear.visible){
-				this.gear.visible = false;
-				this.player.body.height = 31;
-			}else{
-				this.gear.visible = true;
-				this.player.body.height = 55;
-			}
-			
+			this.ToggleGear();
 		}
 
 		if(this.gear.relax !== 0){
 			this.gear.relax = Math.abs(this.gear.relax) - 1;
 		}
 		
+	}
+
+	ToggleGear(){
+		this.gear.relax = 10;
+		if(this.gear.visible){
+			this.gear.visible = false;
+			this.player.body.height = 31;
+		}else{
+			this.gear.visible = true;
+			this.player.body.height = 55;
+		}
 	}
 
 	ConvertObjects(){
@@ -167,6 +178,7 @@ export class SimpleScene extends Phaser.Scene {
 		this.gear = this.add.sprite(48, 66, 'landing_gear');
 		this.gear.visible = true;
 		this.gear.relax = 0;
+		this.gear.landed = false;
 
 		this.player = this.add.container(400, 3000, [ this.saucer, this.gear ]);
 		this.player.setSize(96, 55);
@@ -213,6 +225,7 @@ export class SimpleScene extends Phaser.Scene {
 			this.HitWorld();
 		}else{
 			//this.SetHudPad('Landed: Pad '+evtwo.properties.padnum);
+			this.gear.landed = true;
 			if( evtwo.properties.padnum === this.order ){
 				if( this.order === 0 ){
 					this.SetOrder(this.ChooseOrderPad());
